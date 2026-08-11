@@ -34,9 +34,9 @@ export default function Room() {
 
 	return (
 		<>
-			<div className='roomWrapper'>
+			<div className='roomWrapper w-full sm:gap-0 gap-30 h-screen relative flex flex-col items-center '>
 				<h1
-					className='text-3xl text-white text-shadow-md text-shadow-gray-500 flex justify-center items-center gap-2 cursor-pointer'
+					className='text-3xl text-white text-shadow-md mt-7 text-shadow-gray-500 flex justify-center items-center gap-2 cursor-pointer z-20'
 					title='Click to copy'
 					onClick={() => {
 						navigator.clipboard.writeText(roomId || '')
@@ -49,7 +49,7 @@ export default function Room() {
 					</span>
 				</h1>
 
-					<Clock />
+				<Clock />
 
 				<div className='popUp absolute invisible  opacity-0 text-white bottom-10 right-[50%] translate-x-[50%] p-2 rounded-sm shadow-md shadow-gray-500 bg-gray-600 select-none pointer-events-none'>
 					Copied!

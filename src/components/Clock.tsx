@@ -1,5 +1,11 @@
+import { useCurrentTime } from '../hooks/useCurrentTime'
+
 export default function Clock() {
+	const { hours, minutes } = useCurrentTime()
+
 	return (
-		<span className='clock text-black dark:text-white '>00:00</span>
+		<span className='clock text-[7rem] text-black dark:text-white '>
+			{hours}:{minutes}
+		</span>
 	)
 }
