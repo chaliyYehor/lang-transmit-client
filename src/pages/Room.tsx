@@ -1,7 +1,7 @@
 import gsap from 'gsap'
 import { MorphSVGPlugin } from 'gsap/all'
 import { useParams } from 'react-router-dom'
-import Clock from '../components/clock'
+import Clock from '../components/Clock'
 
 gsap.registerPlugin(MorphSVGPlugin)
 
