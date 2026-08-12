@@ -56,9 +56,16 @@ function App() {
 			dispatch(clearGlobalError())
 		}
 
-		const handleConnectError = () => {
+		const handleConnectError = (error: Error) => {
 			dispatch(setDisconnected())
-			dispatch(setGlobalError('Unable to connect to server'))
+
+			if (error.message === 'Too Many Requests') {
+				dispatch(setGlobalError('Too many requests'))
+			} else if (error.message === 'Forbidden') {
+				dispatch(setGlobalError('Connection forbidden'))
+			} else {
+				dispatch(setGlobalError('Unable to connect to server'))
+			}
 
 			navigate('/')
 		}
