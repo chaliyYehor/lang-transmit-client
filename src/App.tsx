@@ -13,6 +13,7 @@ import { useGSAP } from '@gsap/react'
 import gsap from 'gsap'
 import { SplitText } from 'gsap/all'
 import { setIsDark } from './store/slices/darkTheme'
+import NotFound from './pages/NotFound'
 
 gsap.registerPlugin(SplitText)
 
@@ -156,6 +157,8 @@ function App() {
 			<Routes>
 				<Route path='/' element={<JoinRoom />} />
 				<Route path='/room/:roomId' element={<Room />} />
+
+				<Route path='*' element={<NotFound />}/>
 			</Routes>
 		</>
 	)

@@ -105,7 +105,7 @@ function JoinRoom() {
 					</div>
 					<button
 						type='submit'
-						className='anim join text-3xl text-black dark:text-white w-25 h-14 hover:bg-gray-700 cursor-pointer border-black dark:border-white border-2 rounded-sm active:bg-black active:text-black dark:active:bg-white transition-colors flex justify-center items-center shadow-sm shadow-black dark:shadow-black text-shadow-gray-500 text-shadow-md'
+						className='anim join text-3xl text-black dark:text-white w-25 h-14 dark:hover:bg-gray-700 hover:bg-gray-400 cursor-pointer border-black dark:border-white border-2 rounded-sm active:bg-black active:text-black dark:active:bg-white transition-colors flex justify-center items-center shadow-sm shadow-black dark:shadow-black text-shadow-gray-500 text-shadow-md'
 					>
 						{isSubmitting ? (
 							<div className={clsx(isDark ? 'dark' : '', 'loader')} />
