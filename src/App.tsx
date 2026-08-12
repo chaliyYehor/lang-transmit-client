@@ -12,6 +12,7 @@ import Snowfall from 'react-snowfall'
 import { useGSAP } from '@gsap/react'
 import gsap from 'gsap'
 import { SplitText } from 'gsap/all'
+import { setIsDark } from './store/slices/darkTheme'
 
 gsap.registerPlugin(SplitText)
 
@@ -22,9 +23,16 @@ function App() {
 		localStorage.getItem('isSnowing') === 'true',
 	)
 
+	const dispatch = useDispatch<AppDispatch>()
+	const isUserLeaving = useSelector(
+		(state: RootType) => state.isUserLeaving.isUserLeaving,
+	)
+
 	useEffect(() => {
 		if (localStorage.getItem('theme')) {
-			setDark(localStorage.getItem('theme') === 'dark')
+			const isDark = localStorage.getItem('theme') === 'dark'
+			setDark(isDark)
+			dispatch(setIsDark(isDark))
 		}
 	})
 
@@ -32,15 +40,12 @@ function App() {
 		document.documentElement.classList.toggle('dark', dark)
 		if (dark) {
 			document.body.style.backgroundColor = 'black'
+			dispatch(setIsDark(true))
 		} else {
 			document.body.style.backgroundColor = 'white'
+			dispatch(setIsDark(false))
 		}
 	}, [dark])
-
-	const dispatch = useDispatch<AppDispatch>()
-	const isUserLeaving = useSelector(
-		(state: RootType) => state.isUserLeaving.isUserLeaving,
-	)
 
 	const navigate = useNavigate()
 
@@ -126,7 +131,8 @@ function App() {
 			)}
 			<div className='absolute flex sm:flex-col gap-4 w-full justify-between p-5 sm:p-0 sm:justify-baseline sm:w-fit  z-10 sm:top-[50%] sm:left-10 '>
 				<button
-					className='anim w-10 h-10 flex justify-center items-center cursor-pointer' title='Switch Theme'
+					className='anim w-10 h-10 flex justify-center items-center cursor-pointer'
+					title='Switch Theme'
 					onClick={() => switchTheme()}
 				>
 					{dark ? (
@@ -136,7 +142,8 @@ function App() {
 					)}
 				</button>
 				<button
-					className='anim  w-10 h-10 flex justify-center items-center cursor-pointer' title='Switch Effect'
+					className='anim  w-10 h-10 flex justify-center items-center cursor-pointer'
+					title='Switch Effect'
 					onClick={() => setIsSnowingFunc(!isSnowing)}
 				>
 					{dark ? (
