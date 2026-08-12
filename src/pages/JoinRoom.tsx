@@ -5,6 +5,11 @@ import { useDispatch, useSelector } from 'react-redux'
 import type { AppDispatch, RootType } from '../store/store'
 import { clearGlobalError } from '../store/slices/globalError'
 import { useNavigate } from 'react-router-dom'
+import { useGSAP } from '@gsap/react'
+import gsap from 'gsap'
+import { SplitText } from 'gsap/all'
+
+gsap.registerPlugin(SplitText)
 
 function JoinRoom() {
 	const dispatch = useDispatch<AppDispatch>()
@@ -12,6 +17,33 @@ function JoinRoom() {
 
 	const navigate = useNavigate()
 
+	useGSAP(() => {
+		const tl = gsap.timeline({
+			delay: 3,
+			repeat: -1,
+			repeatDelay: 2,
+		})
+		const split = SplitText.create('.split', { type: 'chars' })
+
+		gsap.set(split.chars, {
+			display: 'inline-block',
+		})
+
+		tl.to(split.chars, {
+			keyframes: [
+				{
+					yPercent: -40,
+					duration: 0.4,
+				},
+				{
+					yPercent: 0,
+					duration: 0.4,
+				},
+			],
+			stagger: 0.15,
+			ease: 'power2.inOut',
+		})
+	}, [])
 	const {
 		handleSubmit,
 		register,
