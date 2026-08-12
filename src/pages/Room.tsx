@@ -59,7 +59,6 @@ export default function Room() {
 		}
 
 		const joinRoom = () => {
-			console.log('connecting')
 			socket.emit(
 				'connectToRoom',
 				{ type: 'user', roomNum: roomId },
@@ -89,7 +88,6 @@ export default function Room() {
 		const handleMessage = (data: Message) => {
 			const parsed = messageSchema.safeParse(data)
 			if (!parsed.success) {
-				console.log('wrong message')
 				return
 			}
 			const { data: lang } = parsed.data

@@ -1,7 +1,7 @@
 {
-  "name": "2-1-client",
+  "name": "Lang Transmitter-client",
   "private": true,
-  "version": "0.0.0",
+  "version": "1.0.0",
   "type": "module",
   "scripts": {
     "dev": "vite",

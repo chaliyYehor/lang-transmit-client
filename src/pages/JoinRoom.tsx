@@ -61,7 +61,6 @@ function JoinRoom() {
 	const roomNumInput = watch('roomNum')
 
 	const onSubmit: SubmitHandler<Room> = data => {
-		console.log(data)
 		dispatch(clearGlobalError())
 		navigate(`/room/${data.roomNum}`)
 	}

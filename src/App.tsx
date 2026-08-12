@@ -52,24 +52,18 @@ function App() {
 
 	useEffect(() => {
 		const handleConnect = () => {
-			console.log('Connected!')
-
 			dispatch(setConnected())
 			dispatch(clearGlobalError())
 		}
 
-		const handleConnectError = (error: Error) => {
-			console.log(`Error while connecting to the server: ${error.message}`)
-
+		const handleConnectError = () => {
 			dispatch(setDisconnected())
 			dispatch(setGlobalError('Unable to connect to server'))
 
 			navigate('/')
 		}
 
-		const handleDisconnect = (reason: string) => {
-			console.log(`User disconnected: ${reason}`)
-
+		const handleDisconnect = () => {
 			if (isUserLeaving) {
 				return
 			}
@@ -158,7 +152,7 @@ function App() {
 				<Route path='/' element={<JoinRoom />} />
 				<Route path='/room/:roomId' element={<Room />} />
 
-				<Route path='*' element={<NotFound />}/>
+				<Route path='*' element={<NotFound />} />
 			</Routes>
 		</>
 	)
