@@ -4,12 +4,7 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { useDispatch, useSelector } from 'react-redux'
 import type { AppDispatch, RootType } from '../store/store'
 import { clearGlobalError } from '../store/slices/globalError'
-import { useGSAP } from '@gsap/react'
-import gsap from 'gsap'
-import { SplitText } from 'gsap/all'
 import { useNavigate } from 'react-router-dom'
-
-gsap.registerPlugin(SplitText)
 
 function JoinRoom() {
 	const dispatch = useDispatch<AppDispatch>()
@@ -40,49 +35,6 @@ function JoinRoom() {
 	function clearInput() {
 		reset()
 	}
-
-	useGSAP(() => {
-		const tl = gsap.timeline({
-			delay: 3,
-			repeat: -1,
-			repeatDelay: 2,
-		})
-		const split = SplitText.create('.split', { type: 'chars' })
-
-		gsap.set(split.chars, {
-			display: 'inline-block',
-		})
-
-		tl.to(split.chars, {
-			keyframes: [
-				{
-					yPercent: -40,
-					duration: 0.4,
-				},
-				{
-					yPercent: 0,
-					duration: 0.4,
-				},
-			],
-			stagger: 0.15,
-			ease: 'power2.inOut',
-		})
-
-		gsap.fromTo(
-			'.anim',
-			{
-				yPercent: 100,
-				autoAlpha: 0,
-				ease: 'power4.out',
-			},
-			{
-				yPercent: 0,
-				autoAlpha: 1,
-				duration: 1,
-				stagger: 0.2,
-			},
-		)
-	}, [])
 
 	return (
 		<>
@@ -119,7 +71,7 @@ function JoinRoom() {
 					</div>
 					<button
 						type='submit'
-						className='anim join text-3xl text-black dark:text-white w-25 h-14 hover:bg-gray-700 cursor-pointer border-black dark:border-white border-2 rounded-sm active:bg-black active:text-black dark:active:bg-white transition-colors flex justify-center items-center shadow-sm shadow-black dark:shadow-black text-shadow-gray-500'
+						className='anim join text-3xl text-black dark:text-white w-25 h-14 hover:bg-gray-700 cursor-pointer border-black dark:border-white border-2 rounded-sm active:bg-black active:text-black dark:active:bg-white transition-colors flex justify-center items-center shadow-sm shadow-black dark:shadow-black text-shadow-gray-500 text-shadow-md'
 					>
 						{isSubmitting ? <div className='loader' /> : 'Join'}
 					</button>
