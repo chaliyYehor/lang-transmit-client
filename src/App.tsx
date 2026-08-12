@@ -9,6 +9,11 @@ import { clearGlobalError, setGlobalError } from './store/slices/globalError'
 import { socket } from './socket'
 import { Moon, Snowflake, Sun } from 'lucide-react'
 import Snowfall from 'react-snowfall'
+import { useGSAP } from '@gsap/react'
+import gsap from 'gsap'
+import { SplitText } from 'gsap/all'
+
+gsap.registerPlugin(SplitText)
 
 function App() {
 	const [dark, setDark] = useState(false)
@@ -91,16 +96,63 @@ function App() {
 		setIsSnowing(value)
 		localStorage.setItem('isSnowing', value.toString())
 	}
+
+	useGSAP(() => {
+		const tl = gsap.timeline({
+			delay: 3,
+			repeat: -1,
+			repeatDelay: 2,
+		})
+		const split = SplitText.create('.split', { type: 'chars' })
+
+		gsap.set(split.chars, {
+			display: 'inline-block',
+		})
+
+		tl.to(split.chars, {
+			keyframes: [
+				{
+					yPercent: -40,
+					duration: 0.4,
+				},
+				{
+					yPercent: 0,
+					duration: 0.4,
+				},
+			],
+			stagger: 0.15,
+			ease: 'power2.inOut',
+		})
+
+		gsap.fromTo(
+			'.anim',
+			{
+				yPercent: 100,
+				autoAlpha: 0,
+				ease: 'power4.out',
+			},
+			{
+				yPercent: 0,
+				autoAlpha: 1,
+				duration: 1,
+				stagger: 0.2,
+			},
+		)
+	}, [])
 	return (
 		<>
 			{isSnowing && (
 				<div className='snowfall-wrapper bg-transparent w-full h-screen absolute top-0 left-0 pointer-events-none'>
-					<Snowfall radius={[1, 3]} snowflakeCount={15} />
+					<Snowfall
+						color={dark ? 'white' : 'black'}
+						radius={[1, 3]}
+						snowflakeCount={15}
+					/>
 				</div>
 			)}
 			<div className='absolute flex sm:flex-col gap-4 w-full justify-between p-5 sm:p-0 sm:justify-baseline sm:w-fit  z-10 sm:top-[50%] sm:left-10 '>
 				<button
-					className='anim w-10 h-10 flex justify-center items-center cursor-pointer'
+					className='anim w-10 h-10 flex justify-center items-center cursor-pointer' title='Switch Theme'
 					onClick={() => switchTheme()}
 				>
 					{dark ? (
@@ -110,7 +162,7 @@ function App() {
 					)}
 				</button>
 				<button
-					className='anim  w-10 h-10 flex justify-center items-center cursor-pointer'
+					className='anim  w-10 h-10 flex justify-center items-center cursor-pointer' title='Switch Effect'
 					onClick={() => setIsSnowingFunc(!isSnowing)}
 				>
 					{dark ? (
